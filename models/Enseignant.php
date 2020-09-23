@@ -106,16 +106,18 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
     }
     public static function delDoc($id)
     {
+        echo $id;
+        $pdo = Config::getPdo();
         $query = "SELECT * FROM document WHERE ?";
         $sql = $pdo->prepare($query);
-        $sql->execute([1]);
+        $sql->execute([$id]);
         $result = $sql->fetch(PDO::FETCH_ASSOC);
-        $c1 = unlink($result["emplacement"]);
+        //$c1 = unlink("../../upload/".$result["emplacement"]);
 
 
-        $pdo = Config::getPdo();
+        
         //DELETE FROM table_name WHERE some_column = some_value 
-        $query = "DELETE FROM `document` WHERE `id_document ` = ?";
+        $query = "DELETE FROM `document` WHERE `id_document` = ?";
         $sql = $pdo->prepare($query);
         $c = $sql->execute([$id]);
         return $c && $c1;
@@ -123,9 +125,25 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
     public static function ajouterTest($post)
     {
         $pdo = Config::getPdo();
-        $query = "INSERT INTO `teste`(`type_teste`) VALUES (?)";
+        $query = "INSERT INTO `teste`(`type_teste`, `module` ) VALUES (?,?)";
         $sql = $pdo->prepare($query);
-        $c1 = $sql->execute([$post["typeTeste"]]);
+        $c1 = $sql->execute([$post["typeTeste"],$post["module"]]);
+        return $c1 ;
+    }
+    public static function modifierTest($post)
+    {
+        $pdo = Config::getPdo();
+        $query = "UPDATE `teste`SET `type_teste` = ? , `module` = ? WHERE id_teste = ?";
+        $sql = $pdo->prepare($query);
+        $c1 = $sql->execute([$post["typeTeste"],$post["module"],$post["id"]]);
+        return $c1 ;
+    }
+    public static function delTeste($id)
+    {
+        $pdo = Config::getPdo();
+        $query = "DELETE FROM `teste` WHERE `id_teste` = ?";
+        $sql = $pdo->prepare($query);
+        $c1 = $sql->execute([$id]);
         return $c1 ;
     }
     public static function ajouterQuestion($post)
@@ -133,13 +151,13 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
         $pdo = Config::getPdo();
         $query = "INSERT INTO `question`(`question_text`,`id_teste`) VALUES (?,?)";
         $sql = $pdo->prepare($query);
-        $c1 = $sql->execute([$post["questionText"],$post["id_teste"]]);
+        $c1 = $sql->execute([$post["questText"],$post["id"]]);
         return $c1 ;
     }
     public static function delQuestion($id)
     {
         $pdo = Config::getPdo();
-        $query = "DELETE FROM `question` WHERE ? ";
+        $query = "DELETE FROM `question` WHERE `id_question` = ? ";
         $sql = $pdo->prepare($query);
         $c1 = $sql->execute([$id]);
         return $c1 ;
@@ -149,13 +167,13 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
         $pdo = Config::getPdo();
         $query = "INSERT INTO `reponse`(`reponse_text`,`id_question` , `valeur`) VALUES (?,?,?)";
         $sql = $pdo->prepare($query);
-        $c1 = $sql->execute([$post["questionText"],$post["id_question"],$post["valeur"]]);
+        $c1 = $sql->execute([$post["reponse"],$post["id"],$post["valeur"]]);
         return $c1 ;
     }
     public static function delReponse($id)
     {
         $pdo = Config::getPdo();
-        $query = "DELETE FROM `reponse` WHERE ? ";
+        $query = "DELETE FROM `reponse` WHERE `id_reponse` = ? ";
         $sql = $pdo->prepare($query);
         $c1 = $sql->execute([$id]);
         return $c1 ;

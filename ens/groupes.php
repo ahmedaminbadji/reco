@@ -1,4 +1,6 @@
-
+<?php 
+    include("../config/db.php");
+?>
 <div class="container">
 <div class="container">
                         
@@ -8,18 +10,26 @@
                                     <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nom Groupe</th>
-                                    <th scope="col">Image Groupe</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                
+                                <?php 
+                                          $pdo = Config::getPdo();
+                                          $query = "SELECT * FROM groupe WHERE  ?";
+                                          $sql = $pdo->prepare($query);
+                                          $sql->execute([1]);
+                                          $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+                                          foreach($result as $row) {
+                                    ?>
                                     <tr>
-                                    <th scope="row"></th>
-                                        <td><img src="data:image/png;base64,{{ chunk_split(base64_encode($product->image)) }}" height="100px" alt=""></td>
-                                        <td></td>
+                                    <th scope="row"><?php echo $row["id_groupe"];  ?></th>
+                                         <td><?php echo $row["nom_groupe"];  ?></td>
                                        
                                     </tr>
-                            
+                                    <?php 
+                                          }
+                                        ?>
+                                
 
 
                                 </tbody>

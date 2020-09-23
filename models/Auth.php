@@ -23,7 +23,8 @@ class Auth {
                         switch ($result["type"]) {
                             case "ens":
                                 echo "ens";
-                                $_SESSION["role"]= $result["ens"];
+                                $_SESSION["role"]= "ens";
+                                header('Location: ../ens/'); 
                                 break;
                             case "aprenant":
                                 echo "aprenant";
@@ -41,8 +42,9 @@ class Auth {
                                 header('Location: ../admin/'); 
                                 break;
                             case "tuteur": 
-                                $_SESSION["role"]= $result["tuteur"];
-                                echo "tuteur";
+                                $_SESSION["role"]= "tuteur";
+
+                                header('Location: ../tuteur/'); 
                         }
                     }else{
                         return "not confirmed";

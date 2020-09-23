@@ -10,14 +10,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
         <script src="static/js/jquery.js"></script>
         <script src="static/ViewerJS/pdf.js"></script>
     </head>
 <body>
        
-        <iframe id="myiframe" src = "" width='90%' height='750' allowfullscreen webkitallowfullscreen></iframe> 
+        <iframe id="myiframe" src = "" width='85%' height='750' allowfullscreen webkitallowfullscreen></iframe> 
         <input type="hidden" name="path" id="path" value="<?php echo $path; ?>">
-            <button id="completer" >completer</button>
+            <button id="completer" class="btn btn-primary" >completer</button>
         
        
         <script>

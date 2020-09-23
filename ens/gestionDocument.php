@@ -124,7 +124,7 @@
                                     ?>
                                         <tr>
                                         <th scope="row"><?php echo $row["id_document"];  ?></th>
-                                        <td></td>
+                                        <td> <a href="../pdf.php?path=<?php echo $row["emplacement"] ?>"> <button class="btn btn-info">Document</button> </a></td>
                                         <td>
                                         <?php 
                                           $pdo = Config::getPdo();
@@ -146,8 +146,8 @@
                                         </center>
                                             <td>
                                                 <center>
-                                            <a href="{{route('productDelete',$product->id)}}" class="btn btn-danger text-white">
-                                                <i class="far fa-trash-alt"></i></a>
+                                            <a href="process/delDoc.php?id=<?php echo $row["id_document"]; ?>" class="btn btn-danger text-white">
+                                                <i class="far fa-trash-alt"></i>Supprimer</a>
                                             </center>
                                             </td>
                                         </tr>
