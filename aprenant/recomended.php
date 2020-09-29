@@ -1,3 +1,9 @@
+<?php 
+
+
+require_once("../config/db.php");
+session_start();
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -39,20 +45,13 @@
         
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       nom utilisateur
+                       <?php $_SESSION["user"] ?>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();">
+                         <a class="dropdown-item" href="../deconnexion.php">
                          Déconnexion
                      </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                     
-                    </form>
+                   
                       </div>
                     </li>
                   </ul>
@@ -62,10 +61,8 @@
               <div class="container-fluid">
                 <div id="content">
                     <div class="container-fluid">
-                    <h3>Tout les documents : </h3>
+                    <h3>Tout les documents supplémentaires : </h3>
     <?php 
-    require_once("../config/db.php");
-    session_start();
         $i=0;
         $pdo = Config::getPdo();
         $query = "SELECT * FROM document_sup WHERE doc_principale = ?";
@@ -86,15 +83,19 @@
             <div class="card-body">
                 <h4 class="card-title">
                     <?php 
-                        
+                          $query = "SELECT * FROM document WHERE id_document = ?";
+                          $sql = $pdo->prepare($query);
+                          $sql->execute([$_SESSION["cour_actuel"]]);
+                          $result2 = $sql->fetch(PDO::FETCH_ASSOC);
+                        $id_module = $result2["id_module"];
                         $query = "SELECT * FROM module WHERE id_module = ?";
                         $sql = $pdo->prepare($query);
-                        $sql->execute([$row["id_module"]]);
+                        $sql->execute([$id_module]);
                         $result2 = $sql->fetch(PDO::FETCH_ASSOC);
                         echo $result2["nom_module"];
                     ?>
                 </h4>
-                <p class="card-text"><?php echo $row["type_document"]; ?></p>
+                <p class="card-text">Document supplémentaire</p>
                 <a href="../pdf.php?path=<?php echo $row["emplacement"] ?>" class="btn btn-primary">Consulter Document</a>
             </div>
             </div>

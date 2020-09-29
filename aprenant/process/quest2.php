@@ -1,6 +1,7 @@
 <?php 
 
 require_once("../../config/db.php");
+session_start();
     $q1 = $_POST["group1"];
     $q2 = $_POST["group2"];
     $q3 = $_POST["group3"];

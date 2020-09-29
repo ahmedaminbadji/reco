@@ -1,5 +1,6 @@
 <?php 
 require_once("../../config/db.php");
+session_start();
 $etat = $_POST["etat"];
 $path = $_POST["path"];
 $pdo = Config::getPdo();

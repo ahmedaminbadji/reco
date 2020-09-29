@@ -93,15 +93,15 @@ async function onPlay(videoEl) {
             switch(label) {
                 case "angry":
                   // code block
-                  pond = 0;
+                  pond = -1;
                   break;
                 case "disgust":
                   // code block
-                  pond = 0;
+                  pond = -1;
                   break;
                 case "fear":
                     // code block
-                    pond = 0;
+                    pond = -1;
                   break;
                 case "happy":
                   // code block
@@ -109,7 +109,7 @@ async function onPlay(videoEl) {
                   break;
                 case "sad":
                   // code block
-                  pond= 0;
+                  pond= -1;
                   break;
                 case "surprise":
                   // code block

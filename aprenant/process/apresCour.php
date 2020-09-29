@@ -1,5 +1,6 @@
 <?php 
 require_once("../../config/db.php");
+session_start();
 $etat = $_POST["etat"];
 
 $pdo = Config::getPdo();
@@ -14,10 +15,11 @@ $ancierEtat = $result["last_emotion"];
                 $sql = $pdo->prepare($query);
                 $sql->execute([$etat,$_SESSION["id_user"]]);
 
-
-if ($ancierEtat == 1 && $etat ==0){
+echo $etat;
+echo $ancierEtat;
+if ($ancierEtat == 1 && $etat ==-1){
     header('Location: ../questionnaire2.html'); 
 }else{
-    header('Location: ../index.php'); 
+   // header('Location: ../index.php'); 
 }                
 ?>

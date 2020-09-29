@@ -15,7 +15,7 @@ session_start();
 
 <head>
     <title>Table with database</title>
-
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
 
 </head>
 
@@ -30,7 +30,7 @@ session_start();
 <form action="../aprenant/process/avantCour.php" method="post">
     <input type="hidden" name="etat" id="etat">
     <input type="hidden" name="path" id="path" value="<?php echo  $path; ?>">
-    <button>Poursuiver</button>
+    <button class="btn btn-primary">Poursuiver</button>
 </form>
 
     <script>

@@ -1,4 +1,12 @@
-
+<?php 
+ if(isset($_GET["t"]) &&  $_GET["t"] != "" && isset($_GET["pagenb"]) &&  $_GET["pagenb"] != ""){
+    $t = $_GET["t"] / (1000 * 60);
+    $pageNb = $_GET["pagenb"];
+    if($t< ($pageNb/2)*5){
+        header('Location: ../aprenant');  
+    }
+ }
+?>
    
     <!DOCTYPE html>
 

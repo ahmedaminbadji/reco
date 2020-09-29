@@ -28,7 +28,10 @@ class Auth {
                                 break;
                             case "aprenant":
                                 echo "aprenant";
-                                $_SESSION["role"]= $result["aprenant"];
+                                $_SESSION["role"]= "aprenant";
+
+                                $_SESSION["user"]= $result["pseudo"];
+                                $_SESSION["id_user"] = $result["id_utilisateur"];
                                 if($result["last_login"]==null){
                                     header('Location: ../fer/test.php'); 
                                 }else{

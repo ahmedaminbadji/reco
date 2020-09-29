@@ -4,7 +4,7 @@
 
 <head>
     <title>Table with database</title>
-
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
 
 </head>
 
@@ -18,7 +18,7 @@
 </div>
 <form action="../aprenant/process/emotionState.php" method="post">
     <input type="hidden" name="etat" id="etat">
-    <button>Poursuiver</button>
+    <button class="btn btn-primary">Poursuiver</button>
 </form>
 
     <script>
