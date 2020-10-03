@@ -8,5 +8,12 @@ var_dump( $bool);
 if($bool)
 {
     //inscrit
+    ?>
+    <script>
+        window.alert("Spécialité ajoutée");
+        window.location.href = "../index.php";
+
+    </script>
+    <?php 
 }
 ?>

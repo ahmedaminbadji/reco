@@ -1,5 +1,13 @@
 <?php 
 require_once("../../config/db.php");
 require_once("../../models/Admin.php");
-echo Admin::delModule($_GET["id"]);
+if(Admin::delModule($_GET["id"])){
+    ?>
+    <script>
+        window.alert("Module supprimé");
+        window.location.href = "../index.php";
+
+    </script>
+    <?php 
+}
 ?>

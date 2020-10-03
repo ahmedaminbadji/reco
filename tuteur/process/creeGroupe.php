@@ -9,5 +9,12 @@ var_dump( $bool);
 if($bool)
 {
     //inscrit
+    ?>
+    <script>
+        window.alert("Groupe crée");
+        window.location.href = "../index.php";
+
+    </script>
+    <?php 
 }
 ?>

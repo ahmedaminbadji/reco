@@ -8,8 +8,8 @@ class Enseignant extends User {
        $this->grade = null;
     }
 
-    public function setup($post,$files){
-        $c =parent::setup($post,$files);
+    public function setup($post){
+        $c =parent::setup($post);
         $this->grade = $post["grade"];
         $this->type = "ens";
         $pdo = Config::getPdo();
@@ -108,11 +108,11 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
     {
         echo $id;
         $pdo = Config::getPdo();
-        $query = "SELECT * FROM document WHERE ?";
+        $query = "SELECT * FROM document WHERE id_document = ?";
         $sql = $pdo->prepare($query);
         $sql->execute([$id]);
         $result = $sql->fetch(PDO::FETCH_ASSOC);
-        //$c1 = unlink("../../upload/".$result["emplacement"]);
+        $c1 = unlink("../../upload/".$result["emplacement"]);
 
 
         
@@ -178,7 +178,7 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
         $c1 = $sql->execute([$id]);
         return $c1 ;
     }
-    public static function editEns($post,$files){
+    public static function editEns($post){
         $pdo = Config::getPdo();
         $query = "SELECT * FROM users WHERE id_utilisateur = ?";
         $sql = $pdo->prepare($query);
@@ -233,9 +233,9 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
        $c = $sql->execute([ $nom ,$prenom ,$sexe ,$email ,$fac ,$dep ,$dateN ,$pseudo , $mdp,$post["id"] ]);
         } else{
             $image = parent::getImage($files);
-            $query = "UPDATE  `users` SET `nom` = ? ,`prenom`=? , `sexe`=? , `email`=? , `faculte`=? , `departement`=? , `date_naiss`=? , `pseudo`=? , `motpass`=? , `imageProf` = ? WHERE `id_utilisateur` = ?";
+            $query = "UPDATE  `users` SET `nom` = ? ,`prenom`=? , `sexe`=? , `email`=? , `faculte`=? , `departement`=? , `date_naiss`=? , `pseudo`=? , `motpass`=?  WHERE `id_utilisateur` = ?";
        $sql = $pdo->prepare($query);
-       $c = $sql->execute([ $nom ,$prenom ,$sexe ,$email ,$fac ,$dep ,$dateN ,$pseudo , $mdp , $image , $post["id"] ]);
+       $c = $sql->execute([ $nom ,$prenom ,$sexe ,$email ,$fac ,$dep ,$dateN ,$pseudo , $mdp  , $post["id"] ]);
         }
 
         $query = "UPDATE  `enseignent` SET `grade_ens` = ?  WHERE `id_utilisateur` = ?";

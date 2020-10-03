@@ -5,44 +5,35 @@ class User
     public $id;
     public  $nom ;
     public $prenom ;
-     public $sexe;
-     public $email;
-     public $fac;
-     public $dep;
-     public $dateN;
-     public $pseudo;
-     public $mdp;
-     public $image;
-     public $type;
+    public $sexe;
+    public $email;
+    public $fac;
+    public $dep;
+    public $dateN;
+    public $pseudo;
+    public $mdp;
+    public $type;
 //null object
     function __construct() {
         $this->nom = null;
         $this->prenom = null;
-         $this->sexe = null;
-         $this->email = null;
-         $this->fac = null;
-         $this->dep = null;
-         $this->dateN = null;
-         $this->pseudo = null;
-         $this->mdp = null;
-         $this->image = null;
-         $this->type = null;
+        $this->sexe = null;
+        $this->email = null;
+        $this->fac = null;
+        $this->dep = null;
+        $this->dateN = null;
+        $this->pseudo = null;
+        $this->mdp = null;
+        $this->image = null;
+        $this->type = null;
     }
 //Hash the password 
     private function hashPass($mdp){
         return password_hash($mdp, PASSWORD_DEFAULT);
     }
-//Enode image before inserting to BDD
-    private function getImage($i){
-        //$path = $request->file('image')->getRealPath();
-        //$temp = file_get_contents($path);
-        $image = realpath($i["files"]["tmp_name"][0]);
-        $name = $i["files"]["name"];
-        $image = addslashes(file_get_contents($image));
-        return $image;
-    }
+
 //set object proprities
-    public function setup($post,$files){
+    public function setup($post){
         $this->nom = $post["inputName"];
         $this->prenom = $post["inputFname"];
         $this->sexe = $post["sexe"];
@@ -52,7 +43,6 @@ class User
         $this->dateN = $post["inputDateN"];
         $this->pseudo = $post["pseudo"];
         $this->mdp = $post["pass"];
-        $this->image = $this->getImage($files);
         $c = $this->save();
         return $c;
     }

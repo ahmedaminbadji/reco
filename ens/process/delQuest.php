@@ -1,5 +1,13 @@
 <?php 
 require_once("../../config/db.php");
 require_once("../../models/Enseignant.php");
-echo Enseignant::delQuestion($_GET["id"]);
+if(Enseignant::delQuestion($_GET["id"])){
+    ?>
+    <script>
+        window.alert("Question supprimée");
+        window.location.href = "../index.php";
+
+    </script>
+    <?php 
+}
 ?>

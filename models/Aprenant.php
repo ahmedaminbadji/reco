@@ -10,8 +10,8 @@ class Aprenant extends User {
        $this->matricule = null;
     }
 
-    public function setup($post,$files){
-        $c = parent::setup($post,$files);
+    public function setup($post){
+        $c = parent::setup($post);
         $this->niveau = $post["niv"];
         $this->matricule = $post["matricule"];
         

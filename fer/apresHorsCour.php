@@ -26,7 +26,7 @@
 <div>
     <h3 id="facialemotion"></h3>
 </div>
-<form action="../aprenant/process/apresHorsCour.php" method="post">
+<form action="../aprenant/process/evaluation.php" method="post">
     <input type="hidden" name="etat" id="etat">
     <button>Poursuiver</button>
 </form>

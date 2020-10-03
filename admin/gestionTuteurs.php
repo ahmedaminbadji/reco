@@ -82,7 +82,6 @@ if(isset($_SESSION["role"]) && $_SESSION["role"] == "admin"){
                                         <th scope="col">Département</th>
                                         <th scope="col">Date de naissance</th>
                                         <th scope="col">Pseudo</th>
-                                        <th scope="col">Image</th>
                                         <th scope="col"></th>
                                         <th scope="col"></th>
                                         </tr>

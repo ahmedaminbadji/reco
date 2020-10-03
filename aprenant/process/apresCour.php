@@ -15,11 +15,9 @@ $ancierEtat = $result["last_emotion"];
                 $sql = $pdo->prepare($query);
                 $sql->execute([$etat,$_SESSION["id_user"]]);
 
-echo $etat;
-echo $ancierEtat;
 if ($ancierEtat == 1 && $etat ==-1){
     header('Location: ../questionnaire2.html'); 
 }else{
-   // header('Location: ../index.php'); 
+    header('Location: ../index.php'); 
 }                
 ?>

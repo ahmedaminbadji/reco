@@ -24,21 +24,15 @@
 <body>
        <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-10">
             <iframe id="myiframe" src = "" width='100%' height='750' allowfullscreen webkitallowfullscreen></iframe> 
         <input type="hidden" name="path" id="path" value="<?php echo $path; ?>">
 
         <input type="hidden" name="pageNb" id="pageNb" value="<?php echo $page_number; ?>">
       
             </div>
-            <div class="col-md-6">
-            <div>
-            <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
-</div>
-<div>
-    <h3 id="facialemotion"></h3>
-</div>
-            <button id="completer" >completer</button>
+            <div class="col-md-2">
+            <button class="btn btn-primary" id="completer" >completer</button>
             </div>
            
 
@@ -51,13 +45,7 @@
     var voiceEmotion = "";
     </script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/face-api.min.js"></script>
-    <script src="js/tf.min.js"></script>
-    <script src="js/commons.js"></script>
-    <script src="js/fer.js"></script>
-    <script>
-        run();
-    </script>
+
        
         <script>
 //         $(window).on('load',function(){
@@ -79,13 +67,15 @@ var begin;
             var path = $("#path").val();
             $('#myiframe').attr('src', '../upload/'+path);
      
-
+$(document).ready(function(){
+    begin = Date.now();
+});
 $("#completer").click(function(){
     //si on a passé le 50% du doc alors direction detection visage
     end = Date.now();
     timeIs = end - begin;
     var pageNb = $("#pageNb").val();
-    window.location.href = "fer/apresHorsCour.php?t="+timeIs+"&pagenb="+pageNb;
+    window.location.href = "apresHorsCour.php?t="+timeIs+"&pagenb="+pageNb;
     //sinon index des cours
 });
         </script>

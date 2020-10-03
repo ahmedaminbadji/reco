@@ -82,7 +82,7 @@ class Tuteur extends User {
         return $c;
     }
     
-    public static function editTuteur($post,$files)
+    public static function editTuteur($post)
     {
         $pdo = Config::getPdo();
         $query = "SELECT * FROM users WHERE id_utilisateur = ?";
@@ -138,9 +138,9 @@ class Tuteur extends User {
        $c = $sql->execute([ $nom ,$prenom ,$sexe ,$email ,$fac ,$dep ,$dateN ,$pseudo , $mdp,$post["id"] ]);
         } else{
             $image = parent::getImage($files);
-            $query = "UPDATE  `users` SET `nom` = ? ,`prenom`=? , `sexe`=? , `email`=? , `faculte`=? , `departement`=? , `date_naiss`=? , `pseudo`=? , `motpass`=? , `imageProf` = ? WHERE `id_utilisateur` = ?";
+            $query = "UPDATE  `users` SET `nom` = ? ,`prenom`=? , `sexe`=? , `email`=? , `faculte`=? , `departement`=? , `date_naiss`=? , `pseudo`=? , `motpass`=?  WHERE `id_utilisateur` = ?";
        $sql = $pdo->prepare($query);
-       $c = $sql->execute([ $nom ,$prenom ,$sexe ,$email ,$fac ,$dep ,$dateN ,$pseudo , $mdp , $image , $post["id"] ]);
+       $c = $sql->execute([ $nom ,$prenom ,$sexe ,$email ,$fac ,$dep ,$dateN ,$pseudo , $mdp  , $post["id"] ]);
         }
         return $c;
     }

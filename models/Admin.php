@@ -5,22 +5,22 @@ class Admin extends User {
     function __construct() {
        parent::__construct();
     }
-    public function setup($post,$files){
-        parent::setup($post,$files);
-        $this->type = "admin";
-        $pdo = Config::getPdo();
+    public function setup($post){
+        // parent::setup($post);
+        // $this->type = "admin";
+        // $pdo = Config::getPdo();
         
 
 
-        $query = "SELECT MAX( id_utilisateur ) AS max_id FROM users ";
-        $sql = $pdo->prepare($query);
-        $sql->execute();
-        $result = $sql->fetch(PDO::FETCH_ASSOC);
-        $this->id =  $result['max_id'];
+        // $query = "SELECT MAX( id_utilisateur ) AS max_id FROM users ";
+        // $sql = $pdo->prepare($query);
+        // $sql->execute();
+        // $result = $sql->fetch(PDO::FETCH_ASSOC);
+        // $this->id =  $result['max_id'];
     
-        $query = "UPDATE  `users` SET `type` = ? WHERE ?";
-        $sql = $pdo->prepare($query);
-        $sql->execute([$this->type,$this->id]);
+        // $query = "UPDATE  `users` SET `type` = ? WHERE ?";
+        // $sql = $pdo->prepare($query);
+        // $sql->execute([$this->type,$this->id]);
    
     }
 
