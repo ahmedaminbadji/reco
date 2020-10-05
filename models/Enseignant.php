@@ -67,7 +67,39 @@ echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
         //upload fichier
         $emplacement = $nomDestination;
         $pdo = Config::getPdo();
-        $query = "INSERT INTO `document`(`type_document`,`emplacement`,`id_module` ) VALUES (?,?,?)";
+        $query = "INSERT INTO `document_hors_cours`(`type_document`,`emplacement`,`id_module` ) VALUES (?,?,?)";
+        $sql = $pdo->prepare($query);
+        $c1 = $sql->execute([$post["typeCours"],$emplacement,$post["module"]]);
+        return $c1 ;
+    }
+    public static function ajouterDocHors($post,$files)
+    {
+        $nomOrigine = $files['file']['name'];
+        $elementsChemin = pathinfo($nomOrigine[0]);
+        $extensionFichier = $elementsChemin['extension'];
+        if ($extensionFichier != "pdf"){
+            echo "Le fichier n'a pas l'extension attendue";
+        } else {  
+              // Copie dans le repertoire du script avec un nom
+            // incluant l'heure a la seconde pres 
+            $repertoireDestination = dirname(__FILE__)."/../upload"."/";
+            $nomDestination = "fichier_du_".date("YmdHis").".".$extensionFichier;
+    if (move_uploaded_file($_FILES["file"]["tmp_name"][0], 
+    $repertoireDestination.$nomDestination)) {
+echo "Le fichier temporaire ".$files["file"]["tmp_name"][0].
+" a été déplacé vers ".$repertoireDestination.$nomDestination;
+} else {
+echo "Le fichier n'a pas été uploadé (trop gros ?) ou ".
+"Le déplacement du fichier temporaire a échoué".
+" vérifiez l'existence du répertoire ".$repertoireDestination;
+}
+
+        }
+      
+        //upload fichier
+        $emplacement = $nomDestination;
+        $pdo = Config::getPdo();
+        $query = "INSERT INTO `document_hors_cours`(`type_document`,`emplacement`,`id_module` ) VALUES (?,?,?)";
         $sql = $pdo->prepare($query);
         $c1 = $sql->execute([$post["typeCours"],$emplacement,$post["module"]]);
         return $c1 ;

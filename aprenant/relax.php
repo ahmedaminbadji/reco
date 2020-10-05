@@ -43,5 +43,8 @@
                     </h3>
            
         </div>
+        <center>
+        <a href="index.php"> <button class="btn btn-primary">Continue</button></a>
+        </center>
     </body>
 </html>

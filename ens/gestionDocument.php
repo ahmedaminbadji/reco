@@ -60,7 +60,7 @@
                                             </form>
                                         </div>
                                         <div id="docHorsCours" class="tab-pane fade">
-                                            <form action="process/ajouterDoc.php" method="post" enctype="multipart/form-data">
+                                            <form action="process/ajouterDocHors.php" method="post" enctype="multipart/form-data">
                                                     <div class="form-group">
                                                         <h5>Document hors cours : (livre, tuto)</h5>
                                                         <select name="typeCours" id="typeCours" class="form-control" required>

@@ -135,7 +135,7 @@
                                         $id_app = $row["aprenant"];
 
                                       
-                                        $query = "SELECT * FROM users WHERE id_utilisateur =  ?";
+                                        $query = "SELECT * FROM users WHERE id_utilisateur = (SELECT `id_utilisateur` FROM `aprenant` WHERE `id_aprenant`=?)";
                                         $sql = $pdo->prepare($query);
                                         $sql->execute([$id_app]);
                                         $result = $sql->fetch(PDO::FETCH_ASSOC);

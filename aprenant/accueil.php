@@ -66,9 +66,9 @@
 
 
 <?php 
-        $query = "SELECT * FROM document WHERE type_document in(?,?)";
+        $query = "SELECT * FROM document_hors_cours WHERE ?";
         $sql = $pdo->prepare($query);
-        $sql->execute(["livre","tuto"]);
+        $sql->execute([1]);
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
         $j = 0;
         foreach($result as $row) {
