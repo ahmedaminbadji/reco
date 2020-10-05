@@ -4,71 +4,37 @@
 require_once("../config/db.php");
 session_start();
 ?>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>Aprenant</title>
-        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../static/css/simple-sidebar.css">
-        <script src="../static/js/jquery.js"></script>
-        <script src="../static/js/bootstrap.min.js"></script>
-    </head>
 
-    <body >
-        <div class="d-flex" id="wrapper">
+<div class="container-fluid">
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item nav-link active" ><a role="tab" aria-controls="ajoutDoc" aria-selected="true" data-toggle="tab"  href="#docCours">Documents du cours </a></li>
+    <li><a data-toggle="tab" class="nav-item nav-link"  href="#docHorsCour">Documents hors cours   </a></li>
+</ul>
+<div class="tab-content">
 
-            <!-- Sidebar -->
-            <div class="bg-dark border-right text-white" id="sidebar-wrapper" style="border-right-color: #100 !important;">
-              <div class="sidebar-heading">Aprenant</div>
-              <div class="list-group list-group-flush">
-              <a href="#" id="accueil" class="list-group-item list-group-item-action bg-dark text-white ">Accueil</a>
-              <a href="#" id="gestionDoc" class="list-group-item list-group-item-action bg-dark text-white">Gestion document</a>
-        
-              <a href="#" id="testes" class="list-group-item list-group-item-action bg-dark text-white">Testes</a>
-              <a href="#" id="messagerie" class="list-group-item list-group-item-action bg-dark text-white">Messagerie</a>
-            </div>
-            </div>
-            <!-- /#sidebar-wrapper -->
-        
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
-        
-              <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
-                <button class="btn btn-danger" id="menu-toggle">Side Bar </button>
-        
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-        
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-        
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       <?php $_SESSION["user"] ?>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                         <a class="dropdown-item" href="../deconnexion.php">
-                         Déconnexion
-                     </a>
-                   
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-        
-              <div class="container-fluid">
-                <div id="content">
-                    <div class="container-fluid">
-                    <h3>Tout les documents supplémentaires : </h3>
+                    <div id="docCours" class="tab-pane fade show active">
+
     <?php 
         $i=0;
         $pdo = Config::getPdo();
-        $query = "SELECT * FROM document_sup WHERE doc_principale = ?";
-        $sql = $pdo->prepare($query);
-        $sql->execute([$_SESSION["cour_actuel"]]);
-        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if(isset($_SESSION["cour_actuel"])){
+          $query2 = "UPDATE `aprenant` SET `cour_reco`=? WHERE `id_utilisateur`=?";
+          $sql2 = $pdo->prepare($query2);
+          $sql2->execute([$_SESSION["cour_actuel"],$_SESSION["id_user"]]);
+  
+  
+          $query = "SELECT * FROM document_sup WHERE doc_principale = ?";
+          $sql = $pdo->prepare($query);
+          $sql->execute([$_SESSION["cour_actuel"]]);
+          $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+          $query = "SELECT * FROM document_sup WHERE doc_principale = (SELECT cour_reco FROM aprenant WHERE id_utilisateur= ?)";
+          $sql = $pdo->prepare($query);
+          $sql->execute([$_SESSION["id_user"]]);
+          $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+          $_SESSION["cour_actuel"] = $result[0]["doc_principale"];
+        }
+       
         foreach($result as $row) {
             if($i==0){
 
@@ -114,31 +80,64 @@ session_start();
                                           }
              ?>
 
-                    </div>
-                </div>
-                </div>
+</div>
+</div>
+<div id="docHorsCour" class="tab-pane fade">
+
+<?php 
+        $i=0;
+    
+  
+  
+          $query = "SELECT * FROM document_hors_cours WHERE 1 LIMIT 0, 5 ORDER BY evaluation DESC";
+          $sql = $pdo->prepare($query);
+          $sql->execute();
+          $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+foreach($result as $row) {
+            if($i==0){
+
+           
+    ?>
+    <div class="row">
+        <?php 
+         }
+        ?>
+        <div class="col-md-3">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <?php 
+                        
+                        $id_module = $result["id_module"];
+                        $query = "SELECT * FROM module WHERE id_module = ?";
+                        $sql = $pdo->prepare($query);
+                        $sql->execute([$id_module]);
+                        $result2 = $sql->fetch(PDO::FETCH_ASSOC);
+                        echo $result2["nom_module"];
+                    ?>
+                </h4>
+                <p class="card-text">Document supplémentaire</p>
+                <a href="../pdf.php?path=<?php echo $row["emplacement"] ?>" class="btn btn-primary">Consulter Document</a>
             </div>
-            <!-- /#page-content-wrapper -->
+            </div>
+        <?php $i++;?>
+        </div>
+        <?php   if($i==4){
+
+           
+?>
+    </div>
+    <?php 
+         $i=0; }
         
-          </div>
-          <script>
-            $("#menu-toggle").click(function(e) {
-              e.preventDefault();
-              $("#wrapper").toggleClass("toggled");
-            });
-          
-            $("#gestionDoc").click(function(){
-              $("#content").load("/reco/aprenant/gestionDoc.php");
-            });
-            $("#testes").click(function(){
-              $("#content").load("/reco/aprenant/testes.php");
-            });
-            $("#messagerie").click(function(){
-              $("#content").load("/reco/aprenant/messagerie.php");
-            });
-            $("#accueil").click(function(){
-              $("#content").load("/reco/aprenant/accueil.php");
-            });
-          </script>
-    </body>
-</html>
+        ?>
+    <?php 
+                                          }
+             ?>
+
+</div>
+</div>
+
+                    </div>
+                  
+  
