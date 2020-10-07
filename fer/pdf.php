@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="en">
     <?php 
+    session_start();
       function count_pages($pdfname) {
         $pdftext = file_get_contents($pdfname);
         $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
@@ -9,6 +10,7 @@
         $path = $_GET["path"];
         $path2 = "http://localhost/reco/upload/".$path;
         $page_number =  count_pages($path2);
+        $_SESSION["cour_actuel"] = $_GET["id"];
     }else{
         $path = "";
     }

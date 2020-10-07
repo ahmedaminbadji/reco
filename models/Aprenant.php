@@ -34,6 +34,14 @@ class Aprenant extends User {
         return $c1 && $c;
         
     }
+    public function demandeGroupe($id){
+        $pdo = Config::getPdo();
+        
+        $query = "INSERT INTO demande_groupe (`id_utilisateur`,`id_groupe`) VALUES(?,?)";
+        $sql = $pdo->prepare($query);
+        return $sql->execute([$_SESSION["id_user"],$id]);
+
+    }
 }
 
 ?>

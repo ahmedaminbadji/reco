@@ -1,5 +1,6 @@
 <?php 
     include("../config/db.php");
+    session_start();
 ?>
 <div class="container">
 <br>
@@ -19,9 +20,9 @@
                                     <tbody>
                                     <?php 
                                           $pdo = Config::getPdo();
-                                          $query = "SELECT * FROM aprenant WHERE besoin_aide = ?";
+                                          $query = "SELECT * FROM aprenant WHERE besoin_aide = ? AND groupe_id IN(SELECT id_groupe FROM groupe WHERE tuteur = ?)";
                                           $sql = $pdo->prepare($query);
-                                          $sql->execute([1]);
+                                          $sql->execute([1,$_SESSION["id_user"]]);
                                           $result = $sql->fetchAll(PDO::FETCH_ASSOC);
                                           foreach($result as $row) {
                                     ?>

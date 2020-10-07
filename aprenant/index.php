@@ -20,6 +20,8 @@ session_start();
               <div class="list-group list-group-flush">
               <a href="#" id="accueil" class="list-group-item list-group-item-action bg-dark text-white ">Accueil</a>
               <a href="#" id="gestionDoc" class="list-group-item list-group-item-action bg-dark text-white">Gestion document</a>
+              <a href="#" id="groupes" class="list-group-item list-group-item-action bg-dark text-white">Groupes</a>
+            
               <a href="#" id="reco" class="list-group-item list-group-item-action bg-dark text-white">Recomondation </a>
         
               <a href="#" id="testes" class="list-group-item list-group-item-action bg-dark text-white">Testes</a>
@@ -87,6 +89,9 @@ session_start();
             });
             $("#reco").click(function(){
               $("#content").load("/reco/aprenant/recomended.php");
+            });
+            $("#groupes").click(function(){
+              $("#content").load("/reco/aprenant/groupes.php");
             });
             
           </script>

@@ -29,9 +29,17 @@ class Auth {
                             case "aprenant":
                                 echo "aprenant";
                                 $_SESSION["role"]= "aprenant";
-
+                                $query="SELECT * FROM `aprenant` WHERE `id_utilisateur`=?";
+                                $sql = $pdo->prepare($query);
+                                $sql->execute(array($result["id_utilisateur"]));
+                                $result2 = $sql->fetch(PDO::FETCH_ASSOC);
                                 $_SESSION["user"]= $result["pseudo"];
                                 $_SESSION["id_user"] = $result["id_utilisateur"];
+                                if($result2["groupe_id"]==null){
+                                    $_SESSION["groupe"] = "none";
+                                }else{
+                                    $_SESSION["groupe"] = $result["groupe_id"];
+                                }
                                 if($result["last_login"]==null){
                                     header('Location: ../fer/test.php'); 
                                 }else{
@@ -47,6 +55,7 @@ class Auth {
                                 break;
                             case "tuteur": 
                                 $_SESSION["role"]= "tuteur";
+                                $_SESSION["id_user"] = $result["id_utilisateur"];
 
                                 header('Location: ../tuteur/'); 
                         }

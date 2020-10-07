@@ -33,9 +33,9 @@ class Tuteur extends User {
     public static function creeGroupe($post)
     {
         $pdo = Config::getPdo();
-        $query = "INSERT INTO `groupe`(`nom_groupe` ) VALUES (?)";
+        $query = "INSERT INTO `groupe`(`nom_groupe`,`tuteur`) VALUES (?,?)";
         $sql = $pdo->prepare($query);
-        $c = $sql->execute([$post["nomGroupe"]]);
+        $c = $sql->execute([$post["nomGroupe"],$_SESSION["id_user"]]);
         return $c ;
     }
     public static function delGroupe($id)

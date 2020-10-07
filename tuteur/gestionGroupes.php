@@ -1,6 +1,7 @@
 
 <?php 
     include("../config/db.php");
+    session_start();
 ?>
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item nav-link active" ><a role="tab" aria-controls="ajoutDoc" aria-selected="true" data-toggle="tab"  href="#ajoutDoc">Creer un groupe </a></li>
@@ -34,9 +35,9 @@
                                     <tbody>
                                     <?php 
                                           $pdo = Config::getPdo();
-                                          $query = "SELECT * FROM demande_groupe WHERE ?";
+                                          $query = "SELECT * FROM demande_groupe WHERE id_groupe  IN (SELECT id_groupe FROM groupe WHERE tuteur = ?)";
                                           $sql = $pdo->prepare($query);
-                                          $sql->execute([1]);
+                                          $sql->execute([$_SESSION["id_user"]]);
                                           $result = $sql->fetchAll(PDO::FETCH_ASSOC);
                                           foreach($result as $row) {
                                     ?>
