@@ -1,5 +1,8 @@
 <?php 
     include("../config/db.php");
+    session_start();
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "ens"){
+
 ?>
 <div class="container">
 <div class="container">
@@ -37,3 +40,8 @@
                         </div>
                     </div>
 </div>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

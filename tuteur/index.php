@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start();
+if(isset($_SESSION["role"]) && $_SESSION["role"] == "tuteur"){
+
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -46,14 +49,10 @@
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();">
+                         <a class="dropdown-item" href="../deconnexion.php">
                          Déconnexion
                      </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                      
-                    </form>
                       </div>
                     </li>
                   </ul>
@@ -82,7 +81,8 @@
               $("#content").load("/reco/tuteur/etudiants.php");
             });
             $("#messagerie").click(function(){
-              $("#content").load("/reco/tuteur/messagerie.php");
+              window.location.href = "/reco/tuteur/messagerie.php";
+              //$("#content").load("/reco/aprenant/messagerie.php");
             });
             $("#accueil").click(function(){
               $("#content").load("/reco/tuteur/accueil.php");
@@ -90,3 +90,8 @@
           </script>
     </body>
 </html>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

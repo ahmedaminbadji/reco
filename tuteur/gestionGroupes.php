@@ -2,6 +2,8 @@
 <?php 
     include("../config/db.php");
     session_start();
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "tuteur"){
+
 ?>
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item nav-link active" ><a role="tab" aria-controls="ajoutDoc" aria-selected="true" data-toggle="tab"  href="#ajoutDoc">Creer un groupe </a></li>
@@ -138,3 +140,8 @@
         $("#idG").val(id);
     });
 </script>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

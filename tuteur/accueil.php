@@ -1,3 +1,8 @@
+<?php 
+session_start();
+if(isset($_SESSION["role"]) && $_SESSION["role"] == "tuteur"){
+
+?>
 <div class="container">
     <br><br>
         <div class="offset-md-3 col-md-6 text-white" style="background-color:rgba(123, 96, 84, 0.83); padding:2% 2% 2% 2%;">
@@ -11,3 +16,8 @@
     </div>
   
 </div>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

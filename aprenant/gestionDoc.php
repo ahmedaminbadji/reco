@@ -1,6 +1,8 @@
 
 <?php 
     include("../config/db.php");
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "aprenant"){
+
     $pdo = Config::getPdo();
 ?>
 <form action="process/ajouterDoc.php" method="post" enctype="multipart/form-data">
@@ -35,3 +37,8 @@
                                                     <button class="btn btn-primary" style="width:50%;">Ajouter</button>
                                                     </center>
                                                 </form>
+                                                <?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

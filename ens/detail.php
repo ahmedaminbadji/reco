@@ -1,4 +1,7 @@
 <?php 
+session_start();
+if(isset($_SESSION["role"]) && $_SESSION["role"] == "ens"){
+
 if(isset($_GET["id"])){
     $id = $_GET["id"];
    
@@ -113,3 +116,8 @@ if(isset($_GET["id"])){
 }
 
 ?>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

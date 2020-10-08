@@ -1,5 +1,7 @@
 <?php 
 session_start();
+if(isset($_SESSION["role"]) && $_SESSION["role"] == "ens"){
+
 ?>
 <html>
     <head>
@@ -50,14 +52,10 @@ session_start();
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();">
+                         <a class="dropdown-item" href="../deconnexion.php">
                          Déconnexion
                      </a>
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                     
-                    </form>
+                   
                       </div>
                     </li>
                   </ul>
@@ -89,7 +87,8 @@ session_start();
               $("#content").load("/reco/ens/groupes.php");
             });
             $("#messagerie").click(function(){
-              $("#content").load("/reco/ens/messagerie.php");
+              window.location.href = "/reco/ens/messagerie.php";
+              //$("#content").load("/reco/aprenant/messagerie.php");
             });
             $("#accueil").click(function(){
               $("#content").load("/reco/ens/accueil.php");
@@ -97,3 +96,8 @@ session_start();
           </script>
     </body>
 </html>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

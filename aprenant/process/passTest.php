@@ -3,7 +3,6 @@
 require_once("../../config/db.php");
 session_start();
 $id = $_POST["id"];
-var_dump($_POST);
 $pdo = Config::getPdo();
 $query = "SELECT * FROM question WHERE  id_teste = ?";
 $sql = $pdo->prepare($query);
@@ -21,5 +20,5 @@ $note = ($total/$n)*20;
 $query = "INSERT INTO `resultat`(`aprenant`, `test`, `note`) VALUES ((SELECT `id_aprenant` FROM `aprenant` WHERE `id_utilisateur`= ?),?,?)";
 $sql = $pdo->prepare($query);
 $sql->execute([$_SESSION["id_user"],$id,$note]);
-//header('Location: ../index.php'); 
+header('Location: ../index.php'); 
 ?>

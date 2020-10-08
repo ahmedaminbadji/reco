@@ -1,6 +1,9 @@
 
 <?php 
     include("../config/db.php");
+    session_start();
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "ens"){
+
 ?>
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item nav-link active" ><a role="tab" aria-controls="ajoutDoc" aria-selected="true" data-toggle="tab"  href="#ajoutDoc">Ajouter un document </a></li>
@@ -39,7 +42,6 @@
                                                         $sql = $pdo->prepare($query);
                                                         $sql->execute([1]);
                                                         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-                                                        var_dump($result);
                                                         foreach($result as $row) {
                                                     ?>
                                                         <option value="<?php echo $row["id_module"] ?>"><?php echo $row["nom_module"] ?> </option>
@@ -200,3 +202,8 @@
     });
    
 </script>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

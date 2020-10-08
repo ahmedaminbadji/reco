@@ -1,11 +1,13 @@
 <?php 
 
 require_once("../../config/db.php");
+session_start();
     $q1 = $_POST["group1"];
     $q2 = $_POST["group2"];
     $q3 = $_POST["group3"];
     $q4 = $_POST["group4"];
     $q5 = $_POST["group5"];
+    var_dump($_POST);
     if(($q1 == 1 || $q2 == 1) && ($q3 == 0 && $q4 ==0 && $q5 == 0)){
         header('Location: ../relax.php'); 
     }else{
@@ -18,7 +20,7 @@ require_once("../../config/db.php");
 
             $query = "SELECT * FROM `users` WHERE `id_utilisateur`=?";
             $sql = $pdo->prepare($query);
-            $sql->execute([1,$_SESSION["id_user"]]);
+            $sql->execute([$_SESSION["id_user"]]);
             $result = $sql->fetch(PDO::FETCH_ASSOC);
 
 
@@ -28,7 +30,7 @@ require_once("../../config/db.php");
             $headers = "From: admin@recomondation.com" . "\r\n" .
             "CC: somebodyelse@example.com";
 
-            mail($to,$subject,$txt,$headers);
+          //  mail($to,$subject,$txt,$headers);
         }else{
             
                 if(($q1 == 1 || $q2 == 1) && ($q3 == 1 ||$q4 ==1 || $q5 == 1)){

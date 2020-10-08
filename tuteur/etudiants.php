@@ -1,6 +1,8 @@
 <?php 
     include("../config/db.php");
     session_start();
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "tuteur"){
+
 ?>
 <div class="container">
 <br>
@@ -52,7 +54,7 @@
 
                                          echo $result["nom_groupe"];
                                         ?></td>
-                                        <td><a href="process/deleteModule.php?id=<?php echo $row["id_module"] ?>"><button class="btn btn-info" >Contacter</button></a></td>
+                                        <td><a href="messagerie.php?id=<?php echo $row["id_utilisateur"]; ?>"> <button class="btn btn-info">Contacter</button></a></td>
                                         </tr>
                                         <?php 
                                           }
@@ -63,3 +65,8 @@
                                 </table>
                             </div>
 </div>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

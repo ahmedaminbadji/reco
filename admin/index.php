@@ -93,7 +93,8 @@ if(isset($_SESSION["role"]) && $_SESSION["role"] == "admin"){
               $("#content").load("/reco/admin/gestionTuteurs.php");
             });
             $("#messagerie").click(function(){
-              $("#content").load("/reco/admin/messagerie.php");
+              window.location.href = "/reco/admin/messagerie.php";
+              //$("#content").load("/reco/aprenant/messagerie.php");
             });
             $("#accueil").click(function(){
               $("#content").load("/reco/admin/accueil.php");

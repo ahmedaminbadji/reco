@@ -1,5 +1,7 @@
 <?php 
     require_once("../config/db.php");
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "aprenant"){
+
     ?>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -112,3 +114,8 @@
                                           }
                                         ?>
                                         </div>
+                                        <?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

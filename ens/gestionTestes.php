@@ -1,5 +1,8 @@
 <?php 
     include("../config/db.php");
+    session_start();
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "ens"){
+
 ?>
     <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item nav-link active" ><a role="tab" aria-controls="ajoutTest" aria-selected="true" data-toggle="tab"  href="#ajoutTest">Ajouter un teste </a></li>
@@ -251,3 +254,8 @@ $(".showEditTestModal").click(function(){
     $("#test_idE").val($(this).attr('data-id'));
 });
 </script>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

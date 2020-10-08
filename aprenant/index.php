@@ -1,5 +1,7 @@
 <?php 
 session_start();
+if(isset($_SESSION["role"]) && $_SESSION["role"] == "aprenant"){
+
 ?>
 <html>
     <head>
@@ -82,7 +84,8 @@ session_start();
               $("#content").load("/reco/aprenant/testes.php");
             });
             $("#messagerie").click(function(){
-              $("#content").load("/reco/aprenant/messagerie.php");
+              window.location.href = "/reco/aprenant/messagerie.php";
+              //$("#content").load("/reco/aprenant/messagerie.php");
             });
             $("#accueil").click(function(){
               $("#content").load("/reco/aprenant/accueil.php");
@@ -97,3 +100,8 @@ session_start();
           </script>
     </body>
 </html>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>

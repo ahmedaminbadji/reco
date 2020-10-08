@@ -1,6 +1,8 @@
 <?php 
     include("../config/db.php");
     session_start();
+    if(isset($_SESSION["role"]) && $_SESSION["role"] == "aprenant"){
+
 ?>
 <div class="container">
 <div class="container">
@@ -46,3 +48,8 @@
                         </div>
                     </div>
 </div>
+<?php
+    }else{
+      echo "not authorized";
+    }
+    ?>
